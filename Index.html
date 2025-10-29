@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Registration by Bayobo</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f2f6ff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #0078ff;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 700px;
+      background-color: white;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #0078ff;
+      border-left: 5px solid #005fcc;
+      padding-left: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus {
+      border-color: #0078ff;
+      outline: none;
+    }
+
+    .course-info {
+      background: #e9f2ff;
+      border-left: 5px solid #0078ff;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      border-radius: 6px;
+    }
+
+    button {
+      display: block;
+      background-color: #0078ff;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      margin: 1.5rem auto 0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fcc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: white;
+      background-color: #0078ff;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>School Registration by Bayobo</h1>
+    <p>Please fill out all the required fields below</p>
+  </header>
+
+  <main>
+    <form id="registrationForm">
+      <h2>Personal Information</h2>
+
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required />
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" min="10" max="99" placeholder="Enter your age" required />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+
+      <h2>Course Selection</h2>
+
+      <label for="college">Select College:</label>
+      <select id="college" name="college" required onchange="updateCourseInfo()">
+        <option value="">-- Select College --</option>
+        <option value="education">College of Education</option>
+        <option value="hospitality">College of Hospitality and Tourism Management</option>
+        <option value="technology">College of Technology</option>
+      </select>
+
+      <div id="courseDetails" class="course-info" style="display:none;"></div>
+
+      <label for="program">Select Program:</label>
+      <select id="program" name="program" required>
+        <option value="">-- Select Program --</option>
+      </select>
+
+      <button type="submit">Submit Registration</button>
+    </form>
+  </main>
+
+  <footer>
+    © 2025 | School Registration Form by Brandon Joshua P. Bayobo
+  </footer>
+
+  <script>
+    const courseData = {
+      education: {
+        programs: [
+          "Bachelor of Elementary Education (BEEd)",
+          "Bachelor of Secondary Education (BSEd) - English",
+          "Bachelor of Secondary Education (BSEd) - Filipino",
+          "Bachelor of Secondary Education (BSEd) - Mathematics",
+          "Bachelor of Secondary Education (BSEd) - Social Studies"
+        ]
+      },
+      hospitality: {
+        programs: [
+          "Bachelor of Science in Hospitality Management (BSHM)",
+          "Bachelor of Science in Tourism Management (BSTM)"
+        ]
+      },
+      technology: {
+        programs: [
+          "Bachelor of Industrial Technology (BIndTech) - Computer Technology",
+          "Bachelor of Industrial Technology (BIndTech) - Electronics Technology"
+        ]
+      }
+    };
+
+    function updateCourseInfo() {
+      const college = document.getElementById("college").value;
+      const details = document.getElementById("courseDetails");
+      const programSelect = document.getElementById("program");
+
+      programSelect.innerHTML = '<option value="">-- Select Program --</option>';
+      
+      if (college && courseData[college]) {
+        const info = courseData[college];
+        details.style.display = "block";
+        details.innerHTML = `
+          <p><strong>Programs Offered:</strong></p>
+          <ul>${info.programs.map(p => `<li>${p}</li>`).join("")}</ul>
+        `;
+        info.programs.forEach(program => {
+          const opt = document.createElement("option");
+          opt.value = program;
+          opt.textContent = program;
+          programSelect.appendChild(opt);
+        });
+      } else {
+        details.style.display = "none";
+      }
+    }
+
+    document.getElementById("registrationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("🎉 Registration submitted successfully!");
+    });
+  </script>
+</body>
+  </html>
